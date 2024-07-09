@@ -8,7 +8,7 @@ export const tokenGenerator = (payload: any) => {
 
 export const manageUserTokens = async (id: Schema.Types.ObjectId) => {
     let userToken = await jwtTokenModel.findOne({ user: id });
-    if (userToken) {
+    if (userToken && userToken.token) {
         try {
             await verifyJwtToken(userToken.token);
         } catch (error) {
@@ -21,12 +21,18 @@ export const manageUserTokens = async (id: Schema.Types.ObjectId) => {
     } else {
         const token = tokenGenerator({ id });
 
-        // If user does not exist, create a new entry with the token array
-        userToken = new jwtTokenModel({
-            user: id,
-            token: token
-        });
-        await userToken.save();
+        if (!userToken) {
+            userToken = new jwtTokenModel({
+                user: id,
+                token: token
+            });
+            await userToken.save();
+        } else {
+            await jwtTokenModel.findOneAndUpdate(
+                { user: id },
+                { token }
+            );
+        }
         return token;
     }
 }

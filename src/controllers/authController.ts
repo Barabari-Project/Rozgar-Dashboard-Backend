@@ -5,6 +5,7 @@ import { manageUserTokens } from '../utils/token';
 import { compareHash } from '../utils/compareHash';
 import userModel from '../models/userModel';
 import { Schema } from 'mongoose';
+import jwtTokenModel from '../models/jwtTokenModel';
 
 export const signUp = expressAsyncHandler(async (req: Request, res: Response) => {
     const { phoneNumber, firstName, lastName, email, password, address } = req.body;
@@ -51,4 +52,16 @@ export const signIn = expressAsyncHandler(async (req: Request, res: Response) =>
     } else {
         throw createHttpError(401, "Invalid Credentials.");
     }
+});
+
+export const signOut = expressAsyncHandler(async (req: Request, res: Response) => {
+    const { id } = req;
+
+    await jwtTokenModel.findOneAndUpdate(
+        { user: id },
+        { token: null }
+    );
+
+    res.status(200).json({ message: 'Signout Successfully.' });
+
 });
