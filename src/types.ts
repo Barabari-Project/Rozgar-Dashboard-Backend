@@ -1,6 +1,6 @@
-import { Document } from "mongoose";
+import { Document, Schema } from "mongoose";
 
-export interface IStudentModel extends Document {
+export interface IUserModel extends Document {
     firstName: string;
     lastName: string;
     email: string;
@@ -39,6 +39,6 @@ export interface ICourseModel extends Document {
 }
 
 export interface IJwtTokenModel extends Document {
-    phoneNumber: string;
-    token: string[];
+    user: Schema.Types.ObjectId;
+    token: string;
 }
