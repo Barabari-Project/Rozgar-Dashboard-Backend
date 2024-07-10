@@ -6,7 +6,7 @@ export interface IUserModel extends Document {
     email: string;
     phoneNumber: number;
     password: string;
-    address?: {
+    address: {
         line1: string;
         line2?: string;
         city: string;

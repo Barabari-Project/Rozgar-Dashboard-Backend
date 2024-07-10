@@ -8,16 +8,16 @@ const userSchema: Schema<IUserModel> = new Schema({
         type: String,
         required: true,
         validate: {
-            validator: (v: string) => /^[a-zA-Z]+$/.test(v),
-            message: (props) => `${props.value} should only contain alphabets.`,
+            validator: (v: string) => /^[a-zA-Z]{2,50}$/.test(v),
+            message: (props) => `${props.value} should only contain alphabets and should be between 2 and 51 characters long.`,
         },
     },
     lastName: {
         type: String,
         required: true,
         validate: {
-            validator: (v: string) => /^[a-zA-Z]+$/.test(v),
-            message: (props) => `${props.value} should only contain alphabets.`,
+            validator: (v: string) => /^[a-zA-Z]{2,50}$/.test(v),
+            message: (props) => `${props.value} should only contain alphabets and should be between 2 and 51 characters long.`,
         },
     },
     email: {
@@ -44,21 +44,44 @@ const userSchema: Schema<IUserModel> = new Schema({
         required: true,
         select: false,
         validate: {
-            validator: (v: string) => v.length < 10 && v.length > 3,
+            validator: (v: string) => /^.{4,9}$/.test(v),
             message: (props) => `${props.value} should be between 4 and 10 characters long.`,
         }
     },
     address: {
-        line1: { type: String, required: true },
-        line2: { type: String },
-        city: { type: String, required: true },
+        line1: {
+            type: String,
+            required: true,
+            validate: {
+                validator: (v: string) => /^[a-zA-Z]{2,50}$/.test(v),
+                message: (props) => `${props.value} should be between 2 and 50 characters long.`,
+            }
+        },
+        line2: {
+            type: String,
+            validate: {
+                validator: (v: string) => (!v || /^[a-zA-Z]{2,50}$/.test(v)),
+                message: (props) => `${props.value} should be between 2 and 50 characters long.`,
+            },
+            required: false
+        },
+        city: {
+            type: String,
+            required: true,
+            validate: {
+                validator: (v: string) => /^[a-zA-Z]{2,50}$/.test(v),
+                message: (props) => `${props.value} should be between 2 and 50 characters long.`,
+            }
+        },
         pincode: {
             type: Number,
             validate: {
                 validator: (v: number) => /^\d{6}$/.test(v.toString()),
                 message: (props) => `${props.value} should be a 6-digit number.`,
             },
+            required: true
         },
+        required: true
     },
     creationTime: { type: String },
     creationDate: { type: String },
