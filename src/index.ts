@@ -26,7 +26,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.error(err);
     // if statusCode is there it means that message will also be created by me
     // if statusCode is not there it means that message is not created by me its something else in this situation we want to send internal server error.
-    res.status(err.statusCode ? err.statusCode : 500).send(err.statusCode ? err.message : 'Internal Server Error.Please try again later.');
+    res.status(err.statusCode ? err.statusCode : 500).json({ error: err.statusCode ? err.message : 'Internal Server Error.Please try again later.' });
 });
 
 

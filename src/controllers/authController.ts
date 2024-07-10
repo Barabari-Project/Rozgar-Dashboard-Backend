@@ -10,7 +10,12 @@ import jwtTokenModel from '../models/jwtTokenModel';
 export const signUp = expressAsyncHandler(async (req: Request, res: Response) => {
     const { phoneNumber, firstName, lastName, email, password, address } = req.body;
 
-    let user = await userModel.findOne({ phoneNumber });
+    let user = await userModel.findOne({
+        $or: [
+            { phoneNumber: phoneNumber },
+            { email: new RegExp(`^${email}$`, 'i') }
+        ]
+    });
 
     if (user) {
         throw createHttpError(409, "You already have an account. Please SignIn.")
@@ -24,6 +29,7 @@ export const signUp = expressAsyncHandler(async (req: Request, res: Response) =>
 
     delete user._id;
     delete user.__v;
+    delete user.password;
     res.status(200).json({
         user,
         token,

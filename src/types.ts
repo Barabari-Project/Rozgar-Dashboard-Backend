@@ -4,13 +4,13 @@ export interface IUserModel extends Document {
     firstName: string;
     lastName: string;
     email: string;
-    phoneNumber: number;
+    phoneNumber: string;
     password: string;
     address: {
         line1: string;
         line2?: string;
         city: string;
-        pincode: number;
+        pincode: string;
     };
     creationTime: string;
     creationDate: string;

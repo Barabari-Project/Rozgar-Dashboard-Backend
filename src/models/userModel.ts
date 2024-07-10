@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { IUserModel } from '../types';
+import { addressRegex, emailRegex, nameRegex, passwordRegex, phoneRegex, pincodeRegex } from '../constants/regexPatterns';
 
 // Define the schema for the user
 const userSchema: Schema<IUserModel> = new Schema({
@@ -8,7 +9,7 @@ const userSchema: Schema<IUserModel> = new Schema({
         type: String,
         required: true,
         validate: {
-            validator: (v: string) => /^[a-zA-Z]{2,50}$/.test(v),
+            validator: (v: string) => nameRegex.test(v),
             message: (props) => `${props.value} should only contain alphabets and should be between 2 and 51 characters long.`,
         },
     },
@@ -16,7 +17,7 @@ const userSchema: Schema<IUserModel> = new Schema({
         type: String,
         required: true,
         validate: {
-            validator: (v: string) => /^[a-zA-Z]{2,50}$/.test(v),
+            validator: (v: string) => nameRegex.test(v),
             message: (props) => `${props.value} should only contain alphabets and should be between 2 and 51 characters long.`,
         },
     },
@@ -25,17 +26,16 @@ const userSchema: Schema<IUserModel> = new Schema({
         required: true,
         unique: true,
         validate: {
-            validator: (v: string) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v), // found on website(more tested)
-            // validator: (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), // provided by gpt
+            validator: (v: string) => emailRegex.test(v),
             message: (props) => `${props.value} is not a valid email address.`,
         },
     },
     phoneNumber: {
-        type: Number,
+        type: String,
         required: true,
         unique: true,
         validate: {
-            validator: (v: number) => /^(\+91)?\d{10}$/.test(v.toString()),
+            validator: (v: string) => phoneRegex.test(v),
             message: (props) => `${props.value} should be a 10-digit number.`,
         },
     },
@@ -44,7 +44,7 @@ const userSchema: Schema<IUserModel> = new Schema({
         required: true,
         select: false,
         validate: {
-            validator: (v: string) => /^.{4,9}$/.test(v),
+            validator: (v: string) => passwordRegex.test(v),
             message: (props) => `${props.value} should be between 4 and 10 characters long.`,
         }
     },
@@ -53,35 +53,34 @@ const userSchema: Schema<IUserModel> = new Schema({
             type: String,
             required: true,
             validate: {
-                validator: (v: string) => /^[a-zA-Z]{2,50}$/.test(v),
+                validator: (v: string) => addressRegex.test(v),
                 message: (props) => `${props.value} should be between 2 and 50 characters long.`,
             }
         },
         line2: {
             type: String,
             validate: {
-                validator: (v: string) => (!v || /^[a-zA-Z]{2,50}$/.test(v)),
+                validator: (v: string) => (!v || addressRegex.test(v)),
                 message: (props) => `${props.value} should be between 2 and 50 characters long.`,
-            },
-            required: false
+            }
         },
         city: {
             type: String,
             required: true,
             validate: {
-                validator: (v: string) => /^[a-zA-Z]{2,50}$/.test(v),
+                validator: (v: string) => addressRegex.test(v),
                 message: (props) => `${props.value} should be between 2 and 50 characters long.`,
             }
         },
         pincode: {
-            type: Number,
+            type: String,
             validate: {
-                validator: (v: number) => /^\d{6}$/.test(v.toString()),
+                validator: (v: string) => pincodeRegex.test(v),
                 message: (props) => `${props.value} should be a 6-digit number.`,
             },
             required: true
         },
-        required: true
+        // required: true
     },
     creationTime: { type: String },
     creationDate: { type: String },
