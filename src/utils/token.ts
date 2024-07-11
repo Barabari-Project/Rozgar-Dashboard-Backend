@@ -24,7 +24,7 @@ export const manageUserTokens = async (id: Schema.Types.ObjectId) => {
         if (!userToken) {
             userToken = new jwtTokenModel({
                 user: id,
-                token: token
+                token
             });
             await userToken.save();
         } else {

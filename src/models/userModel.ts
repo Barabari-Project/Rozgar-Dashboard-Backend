@@ -82,8 +82,14 @@ const userSchema: Schema<IUserModel> = new Schema({
         },
         // required: true
     },
-    creationTime: { type: String },
-    creationDate: { type: String },
+    creationTime: {
+        type: String,
+        select: false,
+    },
+    creationDate: {
+        type: String,
+        select: false,
+    },
 });
 
 // Helper functions to get the current date and time in IST

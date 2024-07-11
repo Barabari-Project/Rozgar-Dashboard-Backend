@@ -1,4 +1,4 @@
-import { Document, Schema } from "mongoose";
+import { Document, Schema, Types } from "mongoose";
 
 export interface IUserModel extends Document {
     firstName: string;
@@ -16,29 +16,41 @@ export interface IUserModel extends Document {
     creationDate: string;
 }
 
-export interface ITopic {
+export interface ITopicModel {
     title: string;
     url: string;
 }
 
-export interface IModule {
+export interface IModuleModel extends Document {
     number: number;
     title: string;
-    topics: ITopic[];
+    topics: Types.ObjectId[];
 }
 
-export interface ISection {
+export interface ISectionModel extends Document {
     title: string;
     number: number;
-    modules: IModule[];
+    modules: Types.ObjectId[];
 }
 
 export interface ICourseModel extends Document {
     title: string;
-    sections: ISection[];
+    sections: Types.ObjectId[];
 }
 
 export interface IJwtTokenModel extends Document {
     user: Schema.Types.ObjectId;
     token: string;
+}
+
+export interface ISubmission {
+    link: string;
+    user: Types.ObjectId;
+}
+
+export interface IQuestionModel extends Document {
+    topic: Types.ObjectId;
+    title: string;
+    desc: string;
+    submission: ISubmission[];
 }
