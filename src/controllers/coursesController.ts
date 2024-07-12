@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import createHttpError from 'http-errors';
-import { CourseModel } from '../models/couseModel';
+import { CourseModel } from '../models/courseModel';
 import mongoose from 'mongoose';
 
 export const getAllCourses = expressAsyncHandler(async (req: Request, res: Response) => {
@@ -17,16 +17,23 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
     }
 
     const course = await CourseModel
-        .findById(id)
+        .findById(id).select('-__v')
         .populate(
             {
                 path: 'sections',
                 populate: {
                     path: 'modules',
                     populate: {
-                        path: 'topics'
-                    }
-                }
+                        path: 'topics',
+                        populate: {
+                            path: 'questions',
+                            select: { __v: 0 }
+                        },
+                        select: { __v: 0 }
+                    },
+                    select: { __v: 0 }
+                },
+                select: { __v: 0 }
             }
         );
 
@@ -35,12 +42,14 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
     } else {
         res.status(200).json(course);
     }
-    
+    // await storeData(jsonData);
+
 });
 
 // import mongoose from 'mongoose';
 // import CourseModel from '../models/courseModel'; // Adjust the import paths as per your project structure
 // import { SectionModel, ModuleModel, TopicModel } from '../models/couseModel';
+// import { QuestionTypes } from '../types';
 // import  from '../models/couseModel';
 // import  from '../models/couseModel';
 
@@ -77,8 +86,20 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                         // Create a new topic document
 //                         const topic = new TopicModel({
 //                             title: topicData.title,
-//                             url: topicData.url
+//                             url: topicData.url,
+//                             questions: []
 //                         });
+
+//                         for (const questionData of topicData.questions) {
+//                             const question = new QuestionModel({
+//                                 title: questionData.title,
+//                                 url: questionData.url,
+//                                 type: questionData.type,
+//                                 number: questionData.number,
+//                             });
+//                             const savedQuestion = await question.save();
+//                             topic.questions.push(savedQuestion._id);
+//                         }
 
 //                         // Save the topic and get its ObjectId
 //                         const savedTopic = await topic.save();
@@ -112,7 +133,7 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //     }
 // }
 
-// // Example usage with your JSON data
+// Example usage with your JSON data
 // const jsonData = [
 //     {
 //         "title": "Full Stack Web Development Program",
@@ -127,11 +148,63 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                         "topics": [
 //                             {
 //                                 "title": "Module Intro Call",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
 //                             },
 //                             {
 //                                 "title": "Basic Command Line",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
 //                             }
 //                             // Add more topics as needed
 //                         ]
@@ -142,11 +215,63 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                         "topics": [
 //                             {
 //                                 "title": "Module Intro Call",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
 //                             },
 //                             {
 //                                 "title": "Basic Command Line",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
 //                             }
 //                             // Add more topics as needed
 //                         ]
@@ -157,11 +282,63 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                         "topics": [
 //                             {
 //                                 "title": "Module Intro Call",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
 //                             },
 //                             {
 //                                 "title": "Basic Command Line",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
 //                             }
 //                             // Add more topics as needed
 //                         ]
@@ -179,11 +356,63 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                         "topics": [
 //                             {
 //                                 "title": "Module Intro Call",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
 //                             },
 //                             {
 //                                 "title": "Basic Command Line",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
 //                             }
 //                             // Add more topics as needed
 //                         ]
@@ -194,11 +423,38 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                         "topics": [
 //                             {
 //                                 "title": "Module Intro Call",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
 //                             },
 //                             {
 //                                 "title": "Basic Command Line",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 'questions': []
 //                             }
 //                             // Add more topics as needed
 //                         ]
@@ -209,11 +465,13 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                         "topics": [
 //                             {
 //                                 "title": "Module Intro Call",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 'questions': []
 //                             },
 //                             {
 //                                 "title": "Basic Command Line",
-//                                 "url": "abc"
+//                                 "url": "abc",
+//                                 'questions': []
 //                             }
 //                             // Add more topics as needed
 //                         ]

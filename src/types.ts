@@ -19,6 +19,7 @@ export interface IUserModel extends Document {
 export interface ITopicModel {
     title: string;
     url: string;
+    questions: Types.ObjectId[];
 }
 
 export interface IModuleModel extends Document {
@@ -49,8 +50,12 @@ export interface ISubmission {
 }
 
 export interface IQuestionModel extends Document {
-    topic: Types.ObjectId;
     title: string;
-    desc: string;
-    submission: ISubmission[];
+    url: string;
+    type: QuestionTypes;
+}
+
+export enum QuestionTypes {
+    ASSIGNMENT = 'Assignment',
+    QUESTION = 'Question'
 }
