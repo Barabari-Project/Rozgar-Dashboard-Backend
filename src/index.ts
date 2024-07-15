@@ -14,7 +14,7 @@ const PORT: number = parseInt(process.env.PORT || '3000');
 
 app.use(express.json());
 app.use(cors({
-    origin: process.env.FRONTEND_BASE_URL
+    origin: "*"
 }));
 app.use(morgan(process.env.ENV!));
 
