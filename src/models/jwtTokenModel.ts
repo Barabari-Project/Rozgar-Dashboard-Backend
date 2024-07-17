@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IJwtTokenModel } from '../types.js';
+import { IJwtTokenModel } from '../types/types.js';
 
 const jwtTokenSchema: Schema = new Schema({
     user: {

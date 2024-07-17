@@ -6,41 +6,46 @@ import { compareHash } from '../utils/compareHash';
 import userModel from '../models/userModel';
 import { Schema } from 'mongoose';
 import jwtTokenModel from '../models/jwtTokenModel';
+import { IUserModel } from '../types/types';
 
 export const signUp = expressAsyncHandler(async (req: Request, res: Response) => {
-    const { phoneNumber, firstName, lastName, email, password, address } = req.body;
+    const { user } = req.body;
+    let newUser: IUserModel | null = null;
 
-    let user = await userModel.findOne({
+    let exsitingUser = await userModel.findOne({
         $or: [
-            { phoneNumber: phoneNumber },
-            { email: new RegExp(`^${email}$`, 'i') }
+            { phoneNumber: user.phoneNumber },
+            { email: new RegExp(`^${user.email}$`, 'i') }
         ]
     });
 
-    if (user) {
+    if (exsitingUser) {
         throw createHttpError(409, "You already have an account. Please SignIn.")
     } else {
-        user = new userModel({ phoneNumber, firstName, lastName, email, password, address });
-        user = await user.save();
-        user = user.toObject();
+        newUser = new userModel({ ...user });
+        newUser = await newUser.save();
+        newUser = newUser.toObject();
     }
 
-    let token = await manageUserTokens(user._id as Schema.Types.ObjectId);
+    let token = await manageUserTokens(newUser._id as Schema.Types.ObjectId);
 
-    delete user._id;
-    delete user.__v;
-    delete user.password;
+    delete newUser._id;
+    delete newUser.__v;
+    delete newUser.password;
+    delete newUser.creationDate;
+    delete newUser.creationTime;
     res.status(200).json({
-        user,
+        newUser,
         token,
         message: 'Signup Successfully.'
     });
 });
 
 export const signIn = expressAsyncHandler(async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { user: { email, password } } = req.body;
     let user = null;
     user = await userModel.findOne({ email }).select('+password');
+    console.log(user);
     if (!user) {
         throw createHttpError(401, "Invalid Credentials.");
     }

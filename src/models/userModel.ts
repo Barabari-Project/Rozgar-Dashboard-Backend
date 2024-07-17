@@ -1,7 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
-import { IUserModel } from '../types';
-import { addressRegex, emailRegex, nameRegex, passwordRegex, phoneRegex, pincodeRegex } from '../constants/regexPatterns';
+import { IUserModel } from '../types/types';
+import { emailRegex, nameRegex, passwordRegex, phoneRegex, pincodeRegex, string50CharRegex } from '../constants/regexPatterns';
+import { Gender } from '../types/enums';
 
 // Define the schema for the user
 const userSchema: Schema<IUserModel> = new Schema({
@@ -45,42 +46,40 @@ const userSchema: Schema<IUserModel> = new Schema({
         select: false,
         validate: {
             validator: (v: string) => passwordRegex.test(v),
-            message: (props) => `${props.value} should be between 4 and 10 characters long.`,
+            message: (props) => `${props.value} should be between 4 and 20 characters long.`,
         }
     },
-    address: {
-        line1: {
-            type: String,
-            required: true,
-            validate: {
-                validator: (v: string) => addressRegex.test(v),
-                message: (props) => `${props.value} should be between 2 and 50 characters long.`,
-            }
-        },
-        line2: {
-            type: String,
-            validate: {
-                validator: (v: string) => (!v || addressRegex.test(v)),
-                message: (props) => `${props.value} should be between 2 and 50 characters long.`,
-            }
-        },
-        city: {
-            type: String,
-            required: true,
-            validate: {
-                validator: (v: string) => addressRegex.test(v),
-                message: (props) => `${props.value} should be between 2 and 50 characters long.`,
-            }
-        },
-        pincode: {
-            type: String,
-            validate: {
-                validator: (v: string) => pincodeRegex.test(v),
-                message: (props) => `${props.value} should be a 6-digit number.`,
-            },
-            required: true
-        },
-        // required: true
+    gender:{
+        type: String,
+        enum: Gender,
+    },
+    region: {
+        type: String,
+        validate: {
+            validator: (v: string) => string50CharRegex.test(v),
+            message: (props) => `${props.value} should not be more than 50 characters.`,
+        }
+    },
+    university:{
+        type: String,
+        validate: {
+            validator: (v: string) => string50CharRegex.test(v),
+            message: (props) => `${props.value} should not be more than 50 characters.`,
+        }
+    },
+    degree:{
+        type: String,
+        validate: {
+            validator: (v: string) => string50CharRegex.test(v),
+            message: (props) => `${props.value} should not be more than 50 characters.`,
+        }
+    },
+    organization:{
+        type: String,
+        validate: {
+            validator: (v: string) => string50CharRegex.test(v),
+            message: (props) => `${props.value} should not be more than 50 characters.`,
+        }
     },
     creationTime: {
         type: String,

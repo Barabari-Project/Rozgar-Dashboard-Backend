@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema, Types } from 'mongoose';
-import { ICourseModel, IModuleModel, IQuestionModel, ISectionModel, ITopicModel, QuestionTypes } from '../types';
+import { ICourseModel, IModuleModel, IQuestionModel, ISectionModel, ITopicModel } from '../types/types';
+import { QuestionTypes } from '../types/enums';
 
 const QuestionSchema: Schema = new Schema({
     title: {

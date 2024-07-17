@@ -1,19 +1,20 @@
 import { Document, Schema, Types } from "mongoose";
 
-export interface IUserModel extends Document {
+import { Gender,QuestionTypes } from './enums';
+
+export interface IUserModel extends Document{
     firstName: string;
     lastName: string;
     email: string;
     phoneNumber: string;
     password: string;
-    address: {
-        line1: string;
-        line2?: string;
-        city: string;
-        pincode: string;
-    };
-    creationTime: string;
-    creationDate: string;
+    gender: Gender;
+    region?: string;
+    university?: string;
+    degree?: string;
+    organization?: string;
+    creationTime?: string;
+    creationDate?: string;
 }
 
 export interface ITopicModel {
@@ -53,9 +54,4 @@ export interface IQuestionModel extends Document {
     title: string;
     url: string;
     type: QuestionTypes;
-}
-
-export enum QuestionTypes {
-    ASSIGNMENT = 'Assignment',
-    QUESTION = 'Question'
 }
