@@ -32,8 +32,6 @@ export const signUp = expressAsyncHandler(async (req: Request, res: Response) =>
     delete newUser._id;
     delete newUser.__v;
     delete newUser.password;
-    delete newUser.creationDate;
-    delete newUser.creationTime;
     res.status(200).json({
         newUser,
         token,

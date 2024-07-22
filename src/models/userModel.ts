@@ -6,7 +6,7 @@ import { Gender } from '../types/enums';
 import moment from 'moment-timezone';
 
 // Define the schema for the user
-const userSchema: Schema = new Schema({
+const userSchema: Schema<IUserModel> = new Schema({
     firstName: {
         type: String,
         required: true,
@@ -97,8 +97,7 @@ userSchema.virtual('updatedAtIST').get(function () {
 });
 
 // Pre-save hook to set the date and time in IST format
-userSchema.pre<IUserModel>('save', function (next) {
-    const user = this as IUserModel;
+userSchema.pre('save', function (next) {
     // it means this is first time we are storing user data into the database at this point we want to hash the password
     if (this.__v === undefined) {
         this.password = bcrypt.hashSync(this.password, 10);

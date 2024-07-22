@@ -13,8 +13,10 @@ export interface IUserModel extends Document{
     university?: string;
     degree?: string;
     organization?: string;
-    creationTime?: string;
-    creationDate?: string;
+    createdAt: Date;
+    updatedAt: Date;
+    createdAtIST: string; // Virtual field
+    updatedAtIST: string; // Virtual field
 }
 
 export interface ITopicModel {
