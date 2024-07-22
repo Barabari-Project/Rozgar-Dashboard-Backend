@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import createHttpError from 'http-errors';
+// import { CourseModel, ModuleModel, QuestionModel, SectionModel, TopicModel } from '../models/courseModel';
 import { CourseModel } from '../models/courseModel';
 import mongoose from 'mongoose';
+// import { QuestionTypes } from '../types/enums';
 
 export const getAllCourses = expressAsyncHandler(async (req: Request, res: Response) => {
     const courses = await CourseModel.find({}, 'title');
@@ -42,16 +44,13 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
     } else {
         res.status(200).json(course);
     }
-    // await storeData(jsonData);
+
+    // const data = await storeData(jsonData);
+    // console.log(data);
 
 });
 
-// import mongoose from 'mongoose';
-// import CourseModel from '../models/courseModel'; // Adjust the import paths as per your project structure
-// import { SectionModel, ModuleModel, TopicModel } from '../models/couseModel';
-// import { QuestionTypes } from '../types';
-// import  from '../models/couseModel';
-// import  from '../models/couseModel';
+
 
 // async function storeData(data: any) {
 //     try {
@@ -133,7 +132,7 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //     }
 // }
 
-// Example usage with your JSON data
+// // Example usage with your JSON data
 // const jsonData = [
 //     {
 //         "title": "Full Stack Web Development Program",
@@ -182,6 +181,498 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                                 "questions": [
 //                                     {
 //                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title Question Title Question Title Question Title Question Title Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title Question Title Question Title Question Title Question Title Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     },
+//                                     {
+//                                         "title": "Question Title Question Title Question Title Question Title Question Title Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title Question Title Question Title Question Title Question Title Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     },
+//                                     {
+//                                         "title": "Question Title Question Title Question Title Question Title Question Title Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title Question Title Question Title Question Title Question Title Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     },
+//                                     {
+//                                         "title": "Question Title Question Title Question Title Question Title Question Title Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     },
+//                                     {
+//                                         "title": "Question Title Question Title Question Title Question Title Question Title Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title Question Title Question Title Question Title Question Title ",
 //                                         "url": "Abc",
 //                                         "number": 1,
 //                                         "type": QuestionTypes.QUESTION
@@ -339,6 +830,538 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                                         "type": QuestionTypes.ASSIGNMENT
 //                                     }
 //                                 ]
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     }
+//                     // Add more modules as needed
+//                 ]
+//             },
+//             {
+//                 "title": "Backend",
+//                 "number": 2,
+//                 "modules": [
+//                     {
+//                         "number": 4,
+//                         "title": "Web Development Fundamentals",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 5,
+//                         "title": "JavaScript Mastery",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 6,
+//                         "title": "ReactJS",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     }
+//                     // Add more modules as needed
+//                 ]
+//             },
+//             {
+//                 "title": "Backend",
+//                 "number": 2,
+//                 "modules": [
+//                     {
+//                         "number": 4,
+//                         "title": "Web Development Fundamentals",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 5,
+//                         "title": "JavaScript Mastery",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 6,
+//                         "title": "ReactJS",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     }
+//                     // Add more modules as needed
+//                 ]
+//             },
+//             {
+//                 "title": "Backend",
+//                 "number": 2,
+//                 "modules": [
+//                     {
+//                         "number": 4,
+//                         "title": "Web Development Fundamentals",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 5,
+//                         "title": "JavaScript Mastery",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 6,
+//                         "title": "ReactJS",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     }
+//                     // Add more modules as needed
+//                 ]
+//             },
+//             {
+//                 "title": "Backend",
+//                 "number": 2,
+//                 "modules": [
+//                     {
+//                         "number": 4,
+//                         "title": "Web Development Fundamentals",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 5,
+//                         "title": "JavaScript Mastery",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 6,
+//                         "title": "ReactJS",
+//                         "topics": [
+//                             {
+//                                 "title": "Module Intro Call",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             },
+//                             {
+//                                 "title": "Basic Command Line",
+//                                 "url": "abc",
+//                                 'questions': []
 //                             }
 //                             // Add more topics as needed
 //                         ]

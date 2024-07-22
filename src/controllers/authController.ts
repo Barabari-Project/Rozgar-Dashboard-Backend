@@ -42,9 +42,9 @@ export const signUp = expressAsyncHandler(async (req: Request, res: Response) =>
 });
 
 export const signIn = expressAsyncHandler(async (req: Request, res: Response) => {
-    const { user: { email, password } } = req.body;
+    const { user: { phoneNumber, password } } = req.body;
     let user = null;
-    user = await userModel.findOne({ email }).select('+password');
+    user = await userModel.findOne({ phoneNumber }).select('+password');
     console.log(user);
     if (!user) {
         throw createHttpError(401, "Invalid Credentials.");

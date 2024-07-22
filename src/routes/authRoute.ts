@@ -1,6 +1,6 @@
 import express from 'express';
 import { signIn, signOut, signUp } from '../controllers/authController.js';
-import { validateEmail, validateName, validatePassword, validatePhoneNumber } from '../middlewares/validationMiddleware.js';
+import { phoneNumberRequired, validateEmail, validateName, validatePassword, validatePhoneNumber } from '../middlewares/validationMiddleware.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
@@ -15,7 +15,8 @@ router.post('/sign-up',
 );
 
 router.post('/sign-in',
-    validateEmail,
+    phoneNumberRequired,
+    validatePhoneNumber,
     validatePassword,
     signIn
 );

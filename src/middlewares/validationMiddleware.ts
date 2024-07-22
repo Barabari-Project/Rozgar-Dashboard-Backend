@@ -13,12 +13,18 @@ export const validateName = (req: Request, res: Response, next: NextFunction) =>
     next();
 }
 
+export const phoneNumberRequired = (req: Request, res: Response, next: NextFunction) => {
+    let { user: { phoneNumber } } = req.body;
+    if (!phoneNumber) {
+        throw createHttpError(400, 'Please Provide a Phone Number');
+    }
+    next();
+}
+
 // Middleware function to validate phone number
 export const validatePhoneNumber = (req: Request, res: Response, next: NextFunction) => {
     let { user: { phoneNumber } } = req.body;
-    if (!phoneNumber) {
-        throw createHttpError(400, 'Please Provide a phone number');
-    } else if (!phoneNumber.match(phoneRegex)) {
+    if (phoneNumber && !phoneNumber.match(phoneRegex)) {
         throw createHttpError(400, 'Invalid phone number format.')
     }
     next();
@@ -26,9 +32,7 @@ export const validatePhoneNumber = (req: Request, res: Response, next: NextFunct
 
 export const validateEmail = (req: Request, res: Response, next: NextFunction) => {
     let { user: { email } } = req.body;
-    if (!email) {
-        throw createHttpError(400, 'Please Provide an email address');
-    } else if (!email.match(emailRegex)) {
+    if (email && !email.match(emailRegex)) {
         throw createHttpError(400, 'Invalid email format.');
     }
     next();

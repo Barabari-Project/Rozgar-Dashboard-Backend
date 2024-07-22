@@ -24,7 +24,7 @@ const userSchema: Schema<IUserModel> = new Schema({
     },
     email: {
         type: String,
-        required: true,
+        // required: true,
         unique: true,
         validate: {
             validator: (v: string) => emailRegex.test(v),
@@ -33,7 +33,7 @@ const userSchema: Schema<IUserModel> = new Schema({
     },
     phoneNumber: {
         type: String,
-        required: true,
+        // required: true,
         unique: true,
         validate: {
             validator: (v: string) => phoneRegex.test(v),
