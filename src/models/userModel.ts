@@ -3,9 +3,10 @@ import bcrypt from 'bcryptjs';
 import { IUserModel } from '../types/types';
 import { emailRegex, nameRegex, passwordRegex, phoneRegex, pincodeRegex, string50CharRegex } from '../constants/regexPatterns';
 import { Gender } from '../types/enums';
+import moment from 'moment-timezone';
 
 // Define the schema for the user
-const userSchema: Schema<IUserModel> = new Schema({
+const userSchema: Schema = new Schema({
     firstName: {
         type: String,
         required: true,
@@ -49,7 +50,7 @@ const userSchema: Schema<IUserModel> = new Schema({
             message: (props) => `${props.value} should be between 4 and 20 characters long.`,
         }
     },
-    gender:{
+    gender: {
         type: String,
         enum: Gender,
     },
@@ -60,56 +61,44 @@ const userSchema: Schema<IUserModel> = new Schema({
             message: (props) => `${props.value} should not be more than 50 characters.`,
         }
     },
-    university:{
+    university: {
         type: String,
         validate: {
             validator: (v: string) => string50CharRegex.test(v),
             message: (props) => `${props.value} should not be more than 50 characters.`,
         }
     },
-    degree:{
+    degree: {
         type: String,
         validate: {
             validator: (v: string) => string50CharRegex.test(v),
             message: (props) => `${props.value} should not be more than 50 characters.`,
         }
     },
-    organization:{
+    organization: {
         type: String,
         validate: {
             validator: (v: string) => string50CharRegex.test(v),
             message: (props) => `${props.value} should not be more than 50 characters.`,
         }
-    },
-    creationTime: {
-        type: String,
-        select: false,
-    },
-    creationDate: {
-        type: String,
-        select: false,
-    },
+    }
+}, {
+    timestamps: true
 });
 
-// Helper functions to get the current date and time in IST
-const getCurrentISTDate = () => {
-    const now = new Date();
-    return now.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
-};
+// Define a virtual for createdAtIST
+userSchema.virtual('createdAtIST').get(function () {
+    return moment(this.createdAt).tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
+});
 
-const getCurrentISTTime = () => {
-    const now = new Date();
-    return now.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false });
-};
+// Define a virtual for updatedAtIST
+userSchema.virtual('updatedAtIST').get(function () {
+    return moment(this.updatedAt).tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
+});
 
 // Pre-save hook to set the date and time in IST format
-userSchema.pre('save', function (next) {
-    if (!this.creationDate) {
-        this.creationDate = getCurrentISTDate();
-    }
-    if (!this.creationTime) {
-        this.creationTime = getCurrentISTTime();
-    }
+userSchema.pre<IUserModel>('save', function (next) {
+    const user = this as IUserModel;
     // it means this is first time we are storing user data into the database at this point we want to hash the password
     if (this.__v === undefined) {
         this.password = bcrypt.hashSync(this.password, 10);
