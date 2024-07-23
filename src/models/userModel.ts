@@ -81,9 +81,42 @@ const userSchema: Schema<IUserModel> = new Schema({
             validator: (v: string) => string50CharRegex.test(v),
             message: (props) => `${props.value} should not be more than 50 characters.`,
         }
+    },
+    submissions: [
+        {
+            question: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Question',
+                required: true
+            },
+            link: {
+                type: String,
+                required: true,
+                validate: {
+                    validator: (v: string) => v.length <= 500,
+                    message: (props: { value: string }) => `${props.value} should not be more than 500 characters.`,
+                },
+            }
+        },
+    ],
+    topics: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Topic',
+        },
+    ],
+    createdAt: {
+        type: Date,
+        select: false
+    },
+    updatedAt: {
+        type: Date,
+        select: false
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 });
 
 // Define a virtual for createdAtIST
@@ -99,7 +132,7 @@ userSchema.virtual('updatedAtIST').get(function () {
 // Pre-save hook to set the date and time in IST format
 userSchema.pre('save', function (next) {
     // it means this is first time we are storing user data into the database at this point we want to hash the password
-    if (this.__v === undefined) {
+    if (this.isNew) {
         this.password = bcrypt.hashSync(this.password, 10);
     }
     next();

@@ -1,8 +1,8 @@
 import { Document, Schema, Types } from "mongoose";
 
-import { Gender,QuestionTypes } from './enums';
+import { Gender, QuestionTypes } from './enums';
 
-export interface IUserModel extends Document{
+export interface IUserModel extends Document {
     firstName: string;
     lastName: string;
     email: string;
@@ -13,6 +13,11 @@ export interface IUserModel extends Document{
     university?: string;
     degree?: string;
     organization?: string;
+    topics?: Types.ObjectId[];
+    submissions?: {
+        question: Types.ObjectId;
+        link: string;
+    }[];
     createdAt: Date;
     updatedAt: Date;
     createdAtIST: string; // Virtual field

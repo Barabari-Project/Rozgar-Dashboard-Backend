@@ -29,8 +29,6 @@ export const signUp = expressAsyncHandler(async (req: Request, res: Response) =>
 
     let token = await manageUserTokens(newUser._id as Schema.Types.ObjectId);
 
-    delete newUser._id;
-    delete newUser.__v;
     delete newUser.password;
     res.status(200).json({
         newUser,
