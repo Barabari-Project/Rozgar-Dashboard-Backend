@@ -61,6 +61,19 @@ export const signIn = expressAsyncHandler(async (req: Request, res: Response) =>
     }
 });
 
+export const auth = expressAsyncHandler(async (req: Request, res: Response) => {
+    const { id } = req;
+    
+    const user = await userModel.findById(id);
+
+    if (!user) {
+        throw createHttpError(404, "You don't have an account.");
+    }
+    res.status(200).json({
+        user
+    });
+});
+
 export const signOut = expressAsyncHandler(async (req: Request, res: Response) => {
     const { id } = req;
 
