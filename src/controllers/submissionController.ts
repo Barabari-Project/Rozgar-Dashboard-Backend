@@ -8,7 +8,7 @@ export const submitQuestion = expressAsyncHandler(async (req: Request, res: Resp
     const { questionId, link } = req.body;
     const userId = req.id;
 
-    const user = await userModel.findOneAndUpdate(
+    let user = await userModel.findOneAndUpdate(
         { _id: userId, 'submissions.question': questionId }, // what if question is not there ( try by yourself)
         { $set: { 'submissions.$.link': link } },
         { new: true }
@@ -19,14 +19,20 @@ export const submitQuestion = expressAsyncHandler(async (req: Request, res: Resp
         if (!question) {
             throw createHttpError(404, "Question not found");
         }
-        await userModel.findByIdAndUpdate(
+        user = await userModel.findByIdAndUpdate(
             userId,
             { $push: { submissions: { question: questionId, link } } },
             { new: true }
         );
     }
 
-    res.status(200).json({ message: 'Link is submited successfully!' });
+    const updatedSubmission = user.submissions.find(submission => submission.question.toString() === questionId);
+    if (updatedSubmission) {
+        res.status(200).json({ message: 'Link is submitted successfully!', submission: updatedSubmission });
+    } else {
+        throw createHttpError(500, "Failed to submit link");
+    }
+
 });
 
 export const submitTopic = expressAsyncHandler(async (req: Request, res: Response) => {
