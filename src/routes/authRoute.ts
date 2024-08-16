@@ -1,13 +1,13 @@
 import express from 'express';
-import { auth, signIn, signOut, signUp } from '../controllers/authController.js';
+import { auth, signIn, signInWithAuth0, signOut, signUp } from '../controllers/authController.js';
 import { phoneNumberRequired, validateEmail, validateName, validatePassword, validatePhoneNumber } from '../middlewares/validationMiddleware.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 router.post('/sign-up',
-    validateName,
-    validateEmail,
+    // validateName,
+    // validateEmail,
     validatePhoneNumber,
     validatePassword,
     // we are not adding validation for optional fields for now. ( expected to be handled at frontend side.)
@@ -17,6 +17,11 @@ router.post('/sign-up',
 router.get('/',
     authMiddleware,
     auth
+);
+
+router.post('/sign-in-with-auth0',
+    validateEmail,
+    signInWithAuth0
 )
 
 router.post('/sign-in',

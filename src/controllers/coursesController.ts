@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import createHttpError from 'http-errors';
-// import { CourseModel, ModuleModel, QuestionModel, SectionModel, TopicModel } from '../models/courseModel';
 import { CourseModel } from '../models/courseModel';
 import mongoose from 'mongoose';
-// import { QuestionTypes } from '../types/enums';
 
 export const getAllCourses = expressAsyncHandler(async (req: Request, res: Response) => {
     const courses = await CourseModel.find({}, 'title');
@@ -135,18 +133,18 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 // // Example usage with your JSON data
 // const jsonData = [
 //     {
-//         "title": "Full Stack Web Development Program",
+//         "title": "Design Pathways",
 //         "sections": [
 //             {
-//                 "title": "Frontend",
+//                 "title": "Building E-commerce Website Using Wix",
 //                 "number": 1,
 //                 "modules": [
 //                     {
 //                         "number": 1,
-//                         "title": "Web Development Fundamentals",
+//                         "title": "Introduction to No-code Tools & Getting Started with Wix.",
 //                         "topics": [
 //                             {
-//                                 "title": "Module Intro Call",
+//                                 "title": "What is No Code",
 //                                 "url": "abc",
 //                                 "questions": [
 //                                     {
@@ -176,7 +174,7 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                                 ]
 //                             },
 //                             {
-//                                 "title": "Basic Command Line",
+//                                 "title": "Different Types of NoCode",
 //                                 "url": "abc",
 //                                 "questions": [
 //                                     {
@@ -206,7 +204,7 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                                 ]
 //                             },
 //                             {
-//                                 "title": "Module Intro Call",
+//                                 "title": "The benefit of No Code",
 //                                 "url": "abc",
 //                                 "questions": [
 //                                     {
@@ -308,404 +306,43 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                                 ]
 //                             },
 //                             {
-//                                 "title": "Basic Command Line",
+//                                 "title": "Getting Started with Wix",
 //                                 "url": "abc",
 //                                 "questions": [
 //                                     {
-//                                         "title": "Question Title",
+//                                         "title": " What are the benefits of no code development over the conventional method",
 //                                         "url": "Abc",
 //                                         "number": 1,
 //                                         "type": QuestionTypes.QUESTION
 //                                     },
 //                                     {
-//                                         "title": "Question Title",
+//                                         "title": " Give examples of some popular No-code tools.",
 //                                         "url": "Abc",
 //                                         "number": 2,
 //                                         "type": QuestionTypes.QUESTION
 //                                     },
 //                                     {
-//                                         "title": "Question Title",
+//                                         "title": "Give some examples of types of websites which can ideally be built on a no code platform",
 //                                         "url": "Abc",
 //                                         "number": 3,
 //                                         "type": QuestionTypes.QUESTION
 //                                     },
 //                                     {
 //                                         "title": "Assignment Title",
-//                                         "url": "Abc",
+//                                         "url": "https://piquant-failing-249.notion.site/Assignment-1-Requirements-and-Images-c627b5cbddcc40e0b5cd1f1c9e3abe24",
 //                                         "number": 1,
 //                                         "type": QuestionTypes.ASSIGNMENT
 //                                     }
 //                                 ]
 //                             },
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title Question Title Question Title Question Title Question Title ",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             }
-//                             // Add more topics as needed
 //                         ]
 //                     },
 //                     {
 //                         "number": 2,
-//                         "title": "JavaScript Mastery",
+//                         "title": "Designing a Wix website from scratch.",
 //                         "topics": [
 //                             {
-//                                 "title": "Module Intro Call",
+//                                 "title": "Creating header menu and pages ",
 //                                 "url": "abc",
 //                                 "questions": [
 //                                     {
@@ -735,7 +372,7 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                                 ]
 //                             },
 //                             {
-//                                 "title": "Basic Command Line",
+//                                 "title": "Setting site theme",
 //                                 "url": "abc",
 //                                 "questions": [
 //                                     {
@@ -763,16 +400,106 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                                         "type": QuestionTypes.ASSIGNMENT
 //                                     }
 //                                 ]
-//                             }
+//                             },
+//                             {
+//                                 "title": "Sections, Columns, and Strips",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Working with gridlines",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Aligning text, images, and other elements on the page",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
 //                             // Add more topics as needed
 //                         ]
 //                     },
 //                     {
 //                         "number": 3,
-//                         "title": "ReactJS",
+//                         "title": "Advanced Wix elements - Carousels, Boxes, Pop-ups and Repeaters",
 //                         "topics": [
 //                             {
-//                                 "title": "Module Intro Call",
+//                                 "title": "How to add carousels",
 //                                 "url": "abc",
 //                                 "questions": [
 //                                     {
@@ -802,7 +529,7 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                                 ]
 //                             },
 //                             {
-//                                 "title": "Basic Command Line",
+//                                 "title": "How to add information cards (TEXT+IMAGE+CTA)",
 //                                 "url": "abc",
 //                                 "questions": [
 //                                     {
@@ -830,7 +557,261 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                                         "type": QuestionTypes.ASSIGNMENT
 //                                     }
 //                                 ]
-//                             }
+//                             },
+//                             {
+//                                 "title": "Light-boxes",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Repeaters / Components",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 4,
+//                         "title": "Forms & CMS",
+//                         "topics": [
+//                             {
+//                                 "title": "Using CMS/Dynamic pages for - Notices / Blogs / News section",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Design a custom form for vacancies",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Publishing wix website",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 5,
+//                         "title": "Understanding the Elements of an E-commerce Website",
+//                         "topics": [
+//                             {
+//                                 "title": "What is inventory",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Adding products - Image, description, CTA, Labels, Pricing",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "User flow of buying a product",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
 //                             // Add more topics as needed
 //                         ]
 //                     }
@@ -838,671 +819,299 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
 //                 ]
 //             },
 //             {
-//                 "title": "Backend",
+//                 "title": "Building School Website on Canva",
 //                 "number": 2,
 //                 "modules": [
 //                     {
-//                         "number": 4,
-//                         "title": "Web Development Fundamentals",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     },
-//                     {
-//                         "number": 5,
-//                         "title": "JavaScript Mastery",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     },
-//                     {
 //                         "number": 6,
-//                         "title": "ReactJS",
+//                         "title": "interaction with information on websites",
 //                         "topics": [
 //                             {
-//                                 "title": "Module Intro Call",
+//                                 "title": "Basic elements of the website",
 //                                 "url": "abc",
-//                                 'questions': []
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
 //                             },
 //                             {
-//                                 "title": "Basic Command Line",
+//                                 "title": "Typography",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Color",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Basics of Visual Hierarchy",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 7,
+//                         "title": "Organize and group information",
+//                         "topics": [
+//                             {
+//                                 "title": "Additional Elements in UI",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "Advanced Visual Hierarchy",
 //                                 "url": "abc",
 //                                 'questions': []
 //                             }
 //                             // Add more topics as needed
 //                         ]
-//                     }
+//                     },
+//                     {
+//                         "number": 8,
+//                         "title": "Grouping of complex information and usability guidelines",
+//                         "topics": [
+//                             {
+//                                 "title": "How to design information cards",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "sizing of elements",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             },
+//                             {
+//                                 "title": "Improving readability and usability",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": " learning basic interactions on hover/scroll",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             }
+//                             // Add more topics as needed
+//                         ]
+//                     },
+//                     {
+//                         "number": 8,
+//                         "title": "Structure and link pages",
+//                         "topics": [
+//                             {
+//                                 "title": "Designing the structure of the website",
+//                                 "url": "abc",
+//                                 "questions": [
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 2,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Question Title",
+//                                         "url": "Abc",
+//                                         "number": 3,
+//                                         "type": QuestionTypes.QUESTION
+//                                     },
+//                                     {
+//                                         "title": "Assignment Title",
+//                                         "url": "Abc",
+//                                         "number": 1,
+//                                         "type": QuestionTypes.ASSIGNMENT
+//                                     }
+//                                 ]
+//                             },
+//                             {
+//                                 "title": "sizing of elements",
+//                                 "url": "abc",
+//                                 'questions': []
+//                             },
+//                         ]
+//                     },
 //                     // Add more modules as needed
 //                 ]
 //             },
-//             {
-//                 "title": "Backend",
-//                 "number": 2,
-//                 "modules": [
-//                     {
-//                         "number": 4,
-//                         "title": "Web Development Fundamentals",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     },
-//                     {
-//                         "number": 5,
-//                         "title": "JavaScript Mastery",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     },
-//                     {
-//                         "number": 6,
-//                         "title": "ReactJS",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     }
-//                     // Add more modules as needed
-//                 ]
-//             },
-//             {
-//                 "title": "Backend",
-//                 "number": 2,
-//                 "modules": [
-//                     {
-//                         "number": 4,
-//                         "title": "Web Development Fundamentals",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     },
-//                     {
-//                         "number": 5,
-//                         "title": "JavaScript Mastery",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     },
-//                     {
-//                         "number": 6,
-//                         "title": "ReactJS",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     }
-//                     // Add more modules as needed
-//                 ]
-//             },
-//             {
-//                 "title": "Backend",
-//                 "number": 2,
-//                 "modules": [
-//                     {
-//                         "number": 4,
-//                         "title": "Web Development Fundamentals",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     },
-//                     {
-//                         "number": 5,
-//                         "title": "JavaScript Mastery",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     },
-//                     {
-//                         "number": 6,
-//                         "title": "ReactJS",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     }
-//                     // Add more modules as needed
-//                 ]
-//             },
-//             {
-//                 "title": "Backend",
-//                 "number": 2,
-//                 "modules": [
-//                     {
-//                         "number": 4,
-//                         "title": "Web Development Fundamentals",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     },
-//                     {
-//                         "number": 5,
-//                         "title": "JavaScript Mastery",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 "questions": [
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 2,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Question Title",
-//                                         "url": "Abc",
-//                                         "number": 3,
-//                                         "type": QuestionTypes.QUESTION
-//                                     },
-//                                     {
-//                                         "title": "Assignment Title",
-//                                         "url": "Abc",
-//                                         "number": 1,
-//                                         "type": QuestionTypes.ASSIGNMENT
-//                                     }
-//                                 ]
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     },
-//                     {
-//                         "number": 6,
-//                         "title": "ReactJS",
-//                         "topics": [
-//                             {
-//                                 "title": "Module Intro Call",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             },
-//                             {
-//                                 "title": "Basic Command Line",
-//                                 "url": "abc",
-//                                 'questions': []
-//                             }
-//                             // Add more topics as needed
-//                         ]
-//                     }
-//                     // Add more modules as needed
-//                 ]
-//             }
-//             // Add more sections as needed
 //         ]
 //     }
 //     // Add more courses as needed

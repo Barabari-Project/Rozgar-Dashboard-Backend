@@ -23,6 +23,7 @@ export const phoneNumberRequired = (req: Request, res: Response, next: NextFunct
 
 // Middleware function to validate phone number
 export const validatePhoneNumber = (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
     let { user: { phoneNumber } } = req.body;
     if (phoneNumber && !phoneNumber.match(phoneRegex)) {
         throw createHttpError(400, 'Invalid phone number format.')
@@ -40,9 +41,7 @@ export const validateEmail = (req: Request, res: Response, next: NextFunction) =
 
 export const validatePassword = (req: Request, res: Response, next: NextFunction) => {
     let { user: { password } } = req.body;
-    if (!password) {
-        throw createHttpError(400, 'Please Provide a password');
-    } else if (!password.match(passwordRegex)) {
+    if (password && !password.match(passwordRegex)) {
         throw createHttpError(400, 'Password must be between 4 and 20 characters long');
     }
     next();

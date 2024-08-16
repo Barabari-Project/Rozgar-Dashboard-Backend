@@ -43,7 +43,7 @@ const userSchema: Schema<IUserModel> = new Schema({
     },
     password: {
         type: String,
-        required: true,
+        // required: true,
         select: false,
         validate: {
             validator: (v: string) => passwordRegex.test(v),

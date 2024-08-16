@@ -63,7 +63,7 @@ export const signIn = expressAsyncHandler(async (req: Request, res: Response) =>
 
 export const auth = expressAsyncHandler(async (req: Request, res: Response) => {
     const { id } = req;
-    
+
     const user = await userModel.findById(id);
 
     if (!user) {
@@ -84,4 +84,30 @@ export const signOut = expressAsyncHandler(async (req: Request, res: Response) =
 
     res.status(200).json({ message: 'Signout Successfully.' });
 
+});
+
+export const signInWithAuth0 = expressAsyncHandler(async (req: Request, res: Response) => {
+    const { user: { email } } = req.body;
+    let exsitingUser = await userModel.findOne({ email });
+    if (exsitingUser) {
+        let token = await manageUserTokens(exsitingUser._id as Schema.Types.ObjectId);
+        exsitingUser = exsitingUser.toObject();
+        delete exsitingUser._id;
+        delete exsitingUser.__v;
+        res.status(200).json({
+            token,
+            user: exsitingUser,
+            message: 'Login Successfully.'
+        });
+    } else {
+        let newUser = new userModel({ email });
+        newUser = await newUser.save();
+        newUser = newUser.toObject();
+        let token = await manageUserTokens(newUser._id as Schema.Types.ObjectId);
+        res.status(200).json({
+            user: newUser,
+            token,
+            message: 'Signup Successfully.'
+        })
+    }
 });
