@@ -24,7 +24,7 @@ export interface IUserModel extends Document {
     updatedAtIST: string; // Virtual field
 }
 
-export interface ITopicModel {
+export interface ITopicModel extends Document {
     title: string;
     url: string;
     questions: Types.ObjectId[];
@@ -60,5 +60,6 @@ export interface ISubmission {
 export interface IQuestionModel extends Document {
     title: string;
     url: string;
+    number: Number;
     type: QuestionTypes;
 }

@@ -3,20 +3,20 @@ import expressAsyncHandler from 'express-async-handler';
 import createHttpError from 'http-errors';
 import { CourseModel } from '../models/courseModel';
 import mongoose from 'mongoose';
+import { ICourseModel } from '../types/types';
 
 export const getAllCourses = expressAsyncHandler(async (req: Request, res: Response) => {
     const courses = await CourseModel.find({}, 'title');
     res.status(200).json(courses);
 });
 
-export const getCourseById = expressAsyncHandler(async (req: Request, res: Response) => {
-    const id = req.params.id;
+export const getCourse = async (id: string): Promise<ICourseModel> => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw createHttpError(400, 'Invalid Course ID.');
     }
 
-    const course = await CourseModel
+    return CourseModel
         .findById(id).select('-__v')
         .populate(
             {
@@ -36,6 +36,12 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
                 select: { __v: 0 }
             }
         );
+}
+
+export const getCourseById = expressAsyncHandler(async (req: Request, res: Response) => {
+    const id = req.params.id;
+
+    const course = await getCourse(id);
 
     if (!course) {
         throw createHttpError(404, 'Course not found.');
@@ -47,8 +53,6 @@ export const getCourseById = expressAsyncHandler(async (req: Request, res: Respo
     // console.log(data);
 
 });
-
-
 
 // async function storeData(data: any) {
 //     try {

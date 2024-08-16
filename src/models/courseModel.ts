@@ -2,7 +2,7 @@ import mongoose, { Document, Schema, Types } from 'mongoose';
 import { ICourseModel, IModuleModel, IQuestionModel, ISectionModel, ITopicModel } from '../types/types';
 import { QuestionTypes } from '../types/enums';
 
-const QuestionSchema: Schema = new Schema({
+const QuestionSchema: Schema<IQuestionModel> = new Schema({
     title: {
         type: String,
         required: [true, 'Title is required'],
@@ -30,7 +30,7 @@ const QuestionSchema: Schema = new Schema({
     }
 });
 
-const TopicSchema: Schema = new Schema({
+const TopicSchema: Schema<ITopicModel> = new Schema({
     title: {
         type: String,
         required: [true, 'Title is required'],
@@ -48,7 +48,7 @@ const TopicSchema: Schema = new Schema({
     }]
 });
 
-const ModuleSchema: Schema = new Schema({
+const ModuleSchema: Schema<IModuleModel> = new Schema({
     number: {
         type: Number,
         required: [true, 'Number is required'],
@@ -65,7 +65,7 @@ const ModuleSchema: Schema = new Schema({
     }]
 });
 
-const SectionSchema: Schema = new Schema({
+const SectionSchema: Schema<ISectionModel> = new Schema({
     title: {
         type: String,
         required: true,
