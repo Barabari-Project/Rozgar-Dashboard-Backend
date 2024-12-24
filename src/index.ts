@@ -13,21 +13,28 @@ const app = express();
 const PORT: number = parseInt(process.env.PORT || '3000');
 
 app.use(express.json());
-app.use(cors({
-    origin: "*"
-}));
-app.use(morgan(process.env.ENV!));
+var allowlist = [process.env.FRONTEND_BASE_URL1, process.env.FRONTEND_BASE_URL2]
+
+var corsOptionsDelegate = function (req, callback) {
+    var corsOptions: { origin: boolean } = { origin: false };
+    if (allowlist.indexOf(req.header('Origin')) !== -1) {
+        corsOptions = { origin: true }
+    }
+    callback(null, corsOptions) // callback expects two parameters: error and options
+}
+
+app.use(cors(corsOptionsDelegate));
 
 connectDB();
 
-app.use(routes);
+app.use('/rozgar/api', routes);
 
-app.get('/',( req: Request, res: Response, next: NextFunction)=>{
+app.get('/rozgar/health', (req: Request, res: Response, next: NextFunction) => {
     res.status(200).send('Ok');
 });
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    if( !err.statusCode ){
+    if (!err.statusCode) {
         console.log(err);
     }
     // if statusCode is there it means that message will also be created by me
